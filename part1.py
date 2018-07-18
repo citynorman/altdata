@@ -121,10 +121,20 @@ import json
 r = requests.get('https://reqres.in/api/users')
 r.json()['data']
 
-# auth
+# vendor auth
 r = requests.get('https://api.github.com/user', auth=('user@company.com', 'password'))
 r = requests.get('https://reqres.in/api/users', headers={"Authorization":"Bearer MYREALLYLONGTOKENIGOT"})
-# todo: example with auth key from mscience
+
+# vendor auth example
+payload = {'username': 'user@domain.com', 'password': 'secure', 'grant_type': "password"}
+headers = {"Accept": "application/json", "Accept-Language": "en-us", "Audience" : "Any", "Cache-Control": "no-cache", "Content-Type": "application/x-www-form-urlencoded"}
+
+response = requests.post('https://data.vendor.com/api/v1/auth/token', headers=headers, data=payload,verify=False)
+access_token = response.json()['access_token']
+headers = {'Authorization': "Bearer " + access_token, "Accept": "application/json", "Accept-Language": "en-us", "Audience" : "Any", "Cache-Control": "no-cache", "Content-Type": "application/x-www-form-urlencoded",}
+params = {'pageSize': 10, 'includePagination': True, 'currentPage': 1}
+url = 'https://data.vendor.com/' + "api/v1/" + 'transaction-data-daily'
+r2 = requests.get(url, headers=headers, params=params,verify=False)
 # NB: IP restrictions
 
 #****************************************
