@@ -43,7 +43,7 @@ FLUSH PRIVILEGES;
 #****************************************
 #****************************************
 
-# motvation + goal:
+# motvation + goal: ref piece
 
 '''
 
