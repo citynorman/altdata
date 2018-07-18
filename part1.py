@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+# http://tiny.cc/augvestnn
+
 """
 Spyder Editor
 
