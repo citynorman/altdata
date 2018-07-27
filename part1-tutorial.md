@@ -6,9 +6,10 @@
 
 Dear client,
 welcome to vendorX. We've set up your S3 bucket, the credentials are below.
-key = AKIAIM2OMJMEO7Y2OISA
-secret = sRtWSf0jcvYmAW1RJt5mwJDPMKta5G9bqM8+rmI/
-bucket = s3://test-augvest-20180719
+
+key = AKIAIM2OMJMEO7Y2OISA  
+secret = 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  
+bucket = s3://test-augvest-20180719  
 path = vendorX/
 
 Best,
@@ -24,9 +25,9 @@ vendorX team
 Dear client,
 welcome to vendorX. Below is our API endpoint.
 
-API: http://app.fakejson.com/q
-Token: pWTXC2e-jqxr0hbWbUGQ-Q
-The documentation can be found at : https://fakejson.com/documentation
+API: http://app.fakejson.com/q  
+Token: pWTXC2e-jqxr0hbWbUGQ-Q  
+The documentation can be found at : https://fakejson.com/documentation  
 
 Best,
 vendorX team
@@ -41,10 +42,11 @@ vendorX team
 
 Dear client,
 welcome to vendorX. We've set up your ftp access, the credentials are below.
-server = 104.131.61.25
-username = testftpusr
-password = WjNHUn5mjwQ3XMK
-path = vendorX/
+
+server = 104.131.61.25  
+username = testftpusr  
+password = WjNHUn5mjwQ3XMK  
+path = vendorX/  
 
 Best,
 vendorX team
@@ -61,10 +63,10 @@ VendorX data dictionary:
 
 Our data is in csv format. The descriptions are as follows
 
-date: publication date
-ticker: NYSE exchange ticker
-data: some important alt data
-data_new: in March 2018 we added some other important alt data
+date: publication date  
+ticker: NYSE exchange ticker  
+data: some important alt data  
+data_new: in March 2018 we added some other important alt data  
 
 
 ### CSV to pandas
