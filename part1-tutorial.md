@@ -1,5 +1,7 @@
 # Hands-on Tutorial: Manipulating Alternative Data with Python, Pt 1
 
+After the teachin, you can hands-on practice by completing this tutorial.
+
 ## Get Files
 
 ### S3
