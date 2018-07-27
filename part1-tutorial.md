@@ -1,6 +1,6 @@
 # Hands-on Tutorial: Manipulating Alternative Data with Python, Pt 1
 
-After the teachin, you can hands-on practice by completing this tutorial.
+After the teachin, you can hands-on practice by completing this tutorial. You should be able to complete this using the reference piece and teach in code.
 
 ## Get Files
 
