@@ -34,7 +34,7 @@ vendorX team
 
 #### Todo
 
-* use Postman to explore the API data
+* use Postman to POST to the api using the token
 * use python requests to load 100 first name, last name into pandas
 
 
@@ -90,15 +90,9 @@ VendorY data dictionary:
 
 Our data is mostly available to fundamental analysts in Excel format. You can download a complete history of our Excel files from S3.
 
-key = AKIAIM2OMJMEO7Y2OISA
-secret = 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
-path = vendorY/
-
-The data items are:
-date: publication date
-ticker: NYSE exchange ticker
-data: some important alt data
-data_new: in March 2018 we added some other important alt data
+key = AKIAIM2OMJMEO7Y2OISA  
+secret = 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  
+path = vendorY/  
 
 #### Todo
 
