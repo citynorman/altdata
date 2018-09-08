@@ -16,4 +16,4 @@ Reading materials including links to all resources to analyze alternative data f
 
 ## Tutorial
 
-Have a go at solving [the tasks in this tutorial](https://github.com/citynorman/augvest201807/blob/master/part1-tutorial.md)! It will give you hands on practice for getting your getting and ingesting alternative data.
+Have a go at solving [the tasks in this tutorial](https://github.com/citynorman/augvest201807/blob/master/part1-tutorial.md)! It will give you hands on practice for getting and ingesting alternative data.
