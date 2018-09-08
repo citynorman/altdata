@@ -2,7 +2,7 @@
 
 After the teachin, you can get hands-on practice by completing this tutorial. You should be able to complete this using the reference piece and teach in code.
 
-## Get Files
+## Step 1: Get Data
 
 ### S3
 
@@ -63,7 +63,7 @@ vendorX team
 * use python requests to load 100 first name, last name into pandas [intermediate]
 
 
-## Loading Data
+## Step 2+3: Ingest and Load Data
 
 VendorX data dictionary: 
 
@@ -115,11 +115,11 @@ Get `vendorY` from S3 bucket above.
 
 (HINT: use d6tstack)
 
-## Preprocessing
+## Step 4: Preprocess Data
 
-### VendorX
+### VendorX data
 
-You've now loaded the data for complete history. You can start preprocessing data for analysis.
+If you've followed steps 1-3, you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using pandas to do this.
 
 Basic:
 * filter dataframe to only have values for ticker M
