@@ -11,10 +11,11 @@ timing:
 30mins hands-on
 15mins solutions overview
 
-
+completed tutorial
 GUI programs vs code
 typical problems?
 wish i had this:
+
 completed sections => show results in real time
 
 '''
@@ -31,9 +32,7 @@ source venv/bin/activate
 
 pip install pandas d6tstack boto3 luigi requests dask[dataframe] mysql-connector-python
 
-[set pycharm environment]
-
-
+set up pycharm venv
 
 '''
 
@@ -101,7 +100,7 @@ for idx, is3 in enumerate(s3files):
     idir = ntpath.dirname(ifname)
     if not os.path.exists(idir):
         os.makedirs(idir)
-    s3cnxn.get(s3files[idx],'data/'+s3files2[idx].key) # => download files
+    s3cnxn.get(s3files[idx],ifname) # => download files
 
 listvendorx()
 
@@ -143,7 +142,7 @@ for idx, iftp in enumerate(ftpfiles):
     idir = ntpath.dirname(ifname)
     if not os.path.exists(idir):
         os.makedirs(idir)
-    ftpcnxn.get(s3files[0],'data/'+s3files2[idx].key) # => download files
+    ftpcnxn.get(ftpfiles[idx],ifname) # => download files
 
 
 #****************************************
@@ -188,19 +187,22 @@ import d6tstack
 df = pd.read_csv('data/vendorX/machinedata-2018-01.csv')
 df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d') # => convert dates
 print(df.head())
-df.compute()['date'].values[0]
+df['date'].values[0]
 
 # load most recent
 cfg_files = list(glob.glob('data/vendorX/machinedata-*.csv'))
 print(cfg_files)
-df = pd.read_csv(np.sort(cfg_files[-1])) # => read most recent file
+df = pd.read_csv(np.sort(cfg_files)[-1]) # => read most recent file
 print(df.head())
 
 # load all files
 
 # dask fails
 df = dd.read_csv('data/vendorX/machinedata-*.csv')
-df.compute().head() # => fails
+try:
+    df.compute().head() # => fails
+except:
+    pass
 
 # solution 1: read with d6tstack
 c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'))
@@ -212,16 +214,16 @@ df = c.combine(is_col_common=True) # => load all files into pandas, only common 
 # solution 2: use d6tstack to make aligned csv
 c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'), all_strings=True)
 c.to_csv() # => creates csvs with columns matched
-df = dd.read_csv('data/vendorX/machinedata-*-matched.csv')
+df = dd.read_csv('data/vendorX/d6tstack-machinedata-*.csv')
 df.compute().head() # => works
 df.compute()['date'].values[0] # => dates not converted
 
 def loadfile(dfg):
-    dfg['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+    dfg['date'] = pd.to_datetime(dfg['date'], format='%Y-%m-%d')
     return dfg
 
 # solution 3: use d6tstack to make combined parquet
-c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'), postprocessing=loadfile)
+c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'), apply_after_read=loadfile)
 c.to_parquet(separate_files=False, out_filename='data/vendorX/combined.pq')
 df = dd.read_parquet('data/vendorX/combined.pq')
 df.compute().head() # => works
@@ -244,21 +246,27 @@ print(dfdb.head())
 dfdb['date'].values[0]
 
 # sql native
-'''
-mysql -u augvest -D augvest -p
-LOAD DATA LOCAL INFILE 'data/vendorX/machinedata-2018-01.csv' INTO TABLE imported2 FIELDS TERMINATED BY ',' IGNORE 1 LINES;
-select * from imported2 limit 2;
-delete from imported2;
-'''
+
+# => create table from pandas
 df = pd.read_csv('data/vendorX/machinedata-2018-01.csv',nrows=5)
 df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d') # => convert dates
 print(pd.io.sql.get_schema(df, 'imported2').replace('"',"`"))
+
+# => mysql cli
+'''
+mysql -u augvest -D augvest -p
+delete from imported2;
+LOAD DATA LOCAL INFILE 'data/vendorX/machinedata-2018-01.csv' INTO TABLE imported2 FIELDS TERMINATED BY ',' IGNORE 1 LINES;
+select * from imported2 limit 2;
+'''
 
 dfdb = pd.read_sql_table('imported2',sql_engine)
 print(dfdb.head())
 dfdb['date'].values[0]
 
-# load multiple files
+# load multiple files - pandas
+
+# => use d6tstack to directly write to db
 c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'))
 c.to_sql('mysql+mysqlconnector://augvest:augvest@localhost/augvest', 'imported3') # => creates csvs with columns matched
 dfdb = pd.read_sql_table('imported3',sql_engine)
@@ -267,20 +275,37 @@ print(dfdb.columns)
 
 '''
 mysql -u augvest -D augvest -p
+delete from imported2;
 LOAD DATA LOCAL INFILE 'data/vendorX/machinedata-2018-01.csv' INTO TABLE imported4 FIELDS TERMINATED BY ',' IGNORE 1 LINES;
 select * from imported2 limit 2;
-delete from imported2;
 '''
 
-print(pd.io.sql.get_schema(df, 'imported2').replace('"',"`"))
-c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'))
+# load multiple files - native db
+
+# => use d6tstack to align files
+c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*0[0-9].csv'), apply_after_read=loadfile)
 dft = c.preview_combine()
-print(pd.io.sql.get_schema(dft, 'imported4').replace('"',"`")) # => todo: d6tstack postprocess
+
+c2 = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'), all_strings=True, columns_select=dft.columns.tolist())
+c2.to_csv(overwrite=True)
+
+# => run sql commands
+sql_create = pd.io.sql.get_schema(dft, 'imported4').replace('"',"`")
+sql_engine.execute(sql_create)
+
+# => load can only handle one file at a time
+sql_engine.execute("delete from imported4;")
+for ifile in np.sort(glob.glob('data/vendorX/d6tstack-machinedata-*.csv')):
+    sql_load = "LOAD DATA LOCAL INFILE '%s' INTO TABLE imported4 FIELDS TERMINATED BY ',' IGNORE 1 LINES;" % ifile
+    sql_engine.execute(sql_load)
 
 dfdb = pd.read_sql_table('imported4',sql_engine)
 
 print(dfdb.head())
+print(dfdb.tail())
 print(dfdb.columns)
+dfdb['date'].values[0]
+
 
 #****************************************
 # excel to pandas
@@ -309,3 +334,55 @@ d6tstack.utils.read_excel_advanced('data/vendorY/xls-case-badlayout1.xls',sheet_
 d6tstack.convert_xls.XLStoCSVMultiSheet('data/vendorY/xls-case-badlayout1.xls').convert_all(header_xls_range="B2:B2")
 ddf = dd.read_csv('data/vendorY/xls-case-multisheet.xls-*.csv')
 ddf.compute().head()
+
+
+#****************************************
+#****************************************
+#****************************************
+# preprocessing data
+#****************************************
+#****************************************
+#****************************************
+
+df = dd.read_parquet('data/vendorX/combined.pq')
+df = df.compute()
+df = df.sort_values(['date','ticker'])
+
+#****************************************
+# basic
+#****************************************
+
+#* filter dataframe to only have values for ticker M
+df[df['ticker']=='M']
+#* filter dataframe to only have values for tickers M and SPLS without using OR
+df[df['ticker'].isin(['M','SPLS'])]
+#* to merge with factset data, make factset tickers of format [ticker]-US
+df['ticker_fds'] = df['ticker']+'-US'
+
+#****************************************
+# Intermediate
+#****************************************
+
+#* extract ticker from factset tickers (ie ticker without "-US") - there are at least 2 ways of doing this
+df['ticker2'] = df['ticker_fds'].str.split('-').str[0]
+assert df['ticker2'].equals(df['ticker'])
+#* select the last value of every month for each ticker
+df.sort_values(['date','ticker']).groupby(['date_yyyymm','ticker']).tail(1)
+#* make a column which first uses "data" and then "data_new" once available
+df['data2'] = np.where(df['data_new'].isna(),df['data'],df['data_new'])
+#* to merge with quarterly financials data, add a column with quarter and year like 1Q18
+df['fq'] = (df['date'].dt.year).astype(str).str[-2:]+'Q'+(df['date'].dt.quarter).astype(str)
+#* calculate quarterly average of "data"
+df.groupby(['fq'])['data'].mean()
+
+#****************************************
+# Advanced:
+#****************************************
+
+# * create quarterly quintiles of "data"
+df['data_q'] = df.groupby(['ticker','fq'])['data'].transform(lambda x: pd.qcut(x,5,labels=range(5)))
+#* make a cumulative sum of data for each ticker for each quarter as of each "date"
+df['data_agg'] = df.groupby(['ticker','fq'])['data'].cumsum()
+#* assume the data gets published at the end of the month with two week delay. Add a column "publish_date" that contains the publishing date
+df['publish_date'] = df['date'] + pd.tseries.offsets.MonthEnd() + pd.DateOffset(days=14)
+

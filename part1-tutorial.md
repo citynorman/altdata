@@ -131,10 +131,10 @@ Intermediate:
 * select the last value of every month for each ticker
 * make a column which first uses "data" and then "data_new" once available
 * to merge with quarterly financials data, add a column with quarter and year like 1Q18
-* calculate quarterly average of "data"
+* calculate quarterly average of "data" for each ticker
 
 Advanced:
-* create quarterly quintiles of "data"
+* create quarterly quintiles of "data" for each ticker
 * make a cumulative sum of data for each ticker for each quarter as of each "date"
 * assume the data gets published at the end of the month with two week delay. Add a column "publish_date" that contains the publishing date
 
