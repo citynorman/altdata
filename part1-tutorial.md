@@ -30,10 +30,10 @@ vendorX team
 Dear client,
 welcome to vendorX. We've set up your ftp access, the credentials are below.
 
-server = 104.131.61.25
-username = testftpusr
-password = WjNHUn5mjwQ3XMK
-folder = vendorX
+server = 104.131.61.25  
+username = testftpusr  
+password = WjNHUn5mjwQ3XMK  
+folder = vendorX  
 
 Best,
 vendorX team
@@ -50,8 +50,8 @@ vendorX team
 Dear client,
 welcome to vendorX. We've set up your API access, the credentials are below.
 
-API endpoint: http://app.fakejson.com/q
-Token: pWTXC2e-jqxr0hbWbUGQ-Q
+API endpoint: http://app.fakejson.com/q  
+Token: pWTXC2e-jqxr0hbWbUGQ-Q  
 The documentation can be found at: https://fakejson.com/documentation  
 
 Best,
