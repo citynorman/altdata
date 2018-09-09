@@ -2,7 +2,10 @@
 
 After the teachin, you can get hands-on practice by completing this tutorial. You should be able to complete this using the reference piece and teach in code.
 
-## Sign up  
+## Webcast 9/19 @6pm - sign up 
+
+We will be going over solutions for this tutorial in a webcast. To participate sign up here
+
 https://ucptl.typeform.com/to/Y0MJ5Q
 
 ## Step 1: Get Data
