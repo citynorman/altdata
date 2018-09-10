@@ -90,7 +90,7 @@ data_new: in March 2018 we added some other important alt data
 * load `vendorX/machinedata-2018-01.csv` into pandas [basic]
 	* process "date" column into a date
 * load the most recent file into pandas without hardcoding the filename [basic]
-* load all files from vendorX `vendorX/*.csv` into pandas using dask (HINT: use d6tstack) [intermediate]
+* load all files from vendorX `vendorX/*.csv` into pandas using dask (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
 	* make sure you do `ddf.tail()` or `ddf.compute()` after `dd.read_csv()`
 
 ### CSV to SQL
@@ -98,7 +98,7 @@ data_new: in March 2018 we added some other important alt data
 * load vendorX/machinedata-2018-01.csv into a sql database
 	* use pandas
 	* use db native command
-* load `vendorX/*.csv` into a sql database (HINT: use d6tstack) [intermediate]
+* load `vendorX/*.csv` into a sql database (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
 	* use pandas
 	* use db native command
 * write a luigi pipeline that imports all data into db [advanced]
@@ -123,13 +123,13 @@ Get `vendorY` from S3 bucket above.
 * load all sheets from `data/vendorY/xls-case-badlayout1.xls` into pandas [basic]
 * load all files `vendorY/xls-case-multifile*.xls` into pandas using dask [basic]
 
-(HINT: use d6tstack)
+(HINT: use [d6tstack](https://github.com/d6t/d6tstack))
 
 ## Step 4: Preprocess Data
 
 ### VendorX data
 
-If you've followed steps 1-3, you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using pandas to do this.
+If you've followed steps 1-3, you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using [pandas](https://pandas.pydata.org/pandas-docs/stable/10min.html) to do this.
 
 Basic:
 * filter dataframe to only have values for ticker M
