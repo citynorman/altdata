@@ -69,8 +69,8 @@ vendorX team
 
 #### Todo
 
-* use Postman to POST to the api using the token [basic]
-* use python requests to load 100 first name, last name into pandas [intermediate]
+* use [Postman](https://www.getpostman.com/) to POST to the api using the token [basic]
+* use [python requests](http://docs.python-requests.org/en/master/) to load 100 first name, last name into pandas [intermediate]
 
 
 ## Step 2+3: Ingest and Load Data
@@ -97,7 +97,7 @@ data_new: in March 2018 we added some other important alt data
 
 * load vendorX/machinedata-2018-01.csv into a sql database
 	* use pandas
-	* use db native command
+	* use db native command eg [mysql load file](https://dev.mysql.com/doc/refman/8.0/en/load-data.html)
 * load `vendorX/*.csv` into a sql database (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
 	* use pandas
 	* use db native command
