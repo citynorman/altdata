@@ -90,15 +90,15 @@ data_new: in March 2018 we added some other important alt data
 * load `vendorX/machinedata-2018-01.csv` into pandas [basic]
 	* process "date" column into a date
 * load the most recent file into pandas without hardcoding the filename [basic]
-* load all files from vendorX `vendorX/*.csv` into pandas using dask (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
+* load all files from vendorX `vendorX/machinedata-*.csv` into pandas using dask (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
 	* make sure you do `ddf.tail()` or `ddf.compute()` after `dd.read_csv()`
 
 ### CSV to SQL
 
-* load vendorX/machinedata-2018-01.csv into a sql database
+* load `vendorX/machinedata-2018-01.csv` into a sql database
 	* use pandas
 	* use db native command eg [mysql load file](https://dev.mysql.com/doc/refman/8.0/en/load-data.html)
-* load `vendorX/*.csv` into a sql database (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
+* load `vendorX/machinedata-*.csv` into a sql database (HINT: use [d6tstack](https://github.com/d6t/d6tstack)) [intermediate]
 	* use pandas
 	* use db native command
 * write a luigi pipeline that imports all data into db [advanced]
