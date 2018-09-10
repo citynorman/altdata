@@ -29,11 +29,11 @@ vendorX team
 
 #### Todo
 
-* use S3browser to explore S3 bucket and sync to a local folder [basic]
-* use AWS S3 CLI to explore S3 bucket and sync to a local folder [basic]
+* use [S3browser](http://s3browser.com/) to explore S3 bucket and sync to a local folder [basic]
+* use [AWS S3 CLI](https://docs.aws.amazon.com/cli/latest/userguide/using-s3-commands.html) to explore S3 bucket and sync to a local folder [basic]
 	* create a new security profile
 	* preview files before sync
-* use python luigi to list files and sync to a local folder [intermediate]
+* use [python luigi](https://github.com/spotify/luigi) to list files and sync to a local folder [intermediate]
 
 ### FTP
 
@@ -50,7 +50,7 @@ vendorX team
 
 #### Todo
 
-* use winscp to explore ftp server and sync to a local folder [basic]
+* use [winscp](https://winscp.net/eng/docs/introduction) to explore ftp server and sync to a local folder [basic]
 * use pyftpsync to sync to a local folder [basic]
 * use python luigi to list files and sync to a local folder [intermediate]
 
