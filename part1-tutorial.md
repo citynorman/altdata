@@ -1,10 +1,16 @@
 # Hands-on Tutorial: Manipulating Alternative Data with Python, Pt 1
 
-After the teachin, you can get hands-on practice by completing this tutorial. You should be able to complete this using the reference piece and teach in code.
+You can get hands-on practice by completing this tutorial. It covers realistic exercises for getting, ingesting and preprocessing datasets. You should be able to complete this using the [reference pieces](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-parts-2-3-ingesting-and-loading-data/) and [teach in code](https://github.com/citynorman/augvest201807/blob/master/part1.py).
 
 ## Solutions walk-through webcast 9/19 @6pm - sign up 
 
-We will be going over solutions for this tutorial in a webcast. To participate sign up here
+We will be going over solutions for this tutorial in a webcast. We will cover the basics as well as addressing common problems such as:
+* dealing with vendor data schema changes
+* extracting data from Excel files
+* avoiding look-ahead bias
+* building python-based data pipelines
+
+To participate sign up here
 
 https://ucptl.typeform.com/to/Y0MJ5Q
 
