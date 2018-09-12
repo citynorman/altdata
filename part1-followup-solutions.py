@@ -283,7 +283,7 @@ select * from imported2 limit 2;
 # load multiple files - native db
 
 # => use d6tstack to align files
-c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*0[0-9].csv'), apply_after_read=loadfile)
+c = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'), apply_after_read=loadfile)
 dft = c.preview_combine()
 
 c2 = d6tstack.combine_csv.CombinerCSV(glob.glob('data/vendorX/machinedata-*.csv'), all_strings=True, columns_select=dft.columns.tolist())
@@ -291,7 +291,10 @@ c2.to_csv(overwrite=True)
 
 # => run sql commands
 sql_create = pd.io.sql.get_schema(dft, 'imported4').replace('"',"`")
-sql_engine.execute(sql_create)
+try:
+    sql_engine.execute(sql_create)
+except:
+    print('create tbl exception')
 
 # => load can only handle one file at a time
 sql_engine.execute("delete from imported4;")
@@ -344,8 +347,77 @@ ddf.compute().head()
 #****************************************
 #****************************************
 
+import d6tpipe.api
+import d6tpipe.pipe
 
+# vendor creates pipe
+d6tapi = d6tpipe.api.APIClient(key='SYDvmaR9dqk687a',secret='SYDvmaR9dqk687a')
+d6tpipe = d6tpipe.Pipe(d6tapi, 'vendorX-tutorial')
 
+data = {
+    'name': 'dev-test',
+    'connection-details': {
+        'name': 's3-dev-test-private', 'type': 's3', 'bucket': 'test-augvest-20180719', 'key':'AKIAIM2OMJMEO7Y2OISA', 'secret':'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'
+        }, # create new connection
+    'subdir':'vendorX/',
+    'owner': 'vendorX', 
+    'filedate': '', 
+    'fileoptions': {
+        'separator':','} # vendor provides file processing options
+    }
+response, data = d6tcnxn1.client.pipes.post(request_body=data)
+
+# vendor uploads files
+d6tpipe.push(glob.glob('data/vendorX/machinedata-*.csv'))
+
+# vendor grants access
+data = {'email':'you@client.com'}
+response, = d6tcnxn1.pipes._(cfg_ds_name).permissions.grant.post(request_body=data)
+assert response.status == 200
+
+# consumer pulls files
+d6tapi = d6tpipe.api.APIClient(key='9PCCZP5q9eN9abvm',secret='MLpTftafuH3bRAfX')
+d6tpipe = d6tpipe.Pipe(d6tapi, 'vendorX-tutorial')
+d6tpipe.pull()
+
+# open file
+fpath = d6tpipe.files_one(name='data/vendorX/machinedata-2018-01.csv')
+df = pd.read_csv(fpath, sep=d6tpipe.config['separator'])
+
+# open most recent file
+files = d6tpipe.files()
+df = pd.read_csv(files[-1])
+
+# open last 2 weeks files
+response = d6tpipe.files(date_recent=2)
+df = dd.read_csv(files)
+
+# open all files
+files = d6tpipe.files()
+df = dd.read_csv(files)
+
+# filter files
+files = d6tpipe.files(include='machinedata-2018-*.csv')
+df = dd.read_csv(files)
+
+# open parquet from a processed pipe
+d6tpipe_out = d6tpipe.Pipe(d6tapi, 'vendorX-tutorial-parquet')
+
+import fastparquet
+def loadfile(dfg):
+    dfg['date'] = pd.to_datetime(dfg['date'], format='%Y-%m-%d')
+    return dfg
+dfout = loadfile(df)
+fastparquet.write(d6tpipe_out.fpath_prefix_local+'out.pq', dfout)
+d6tpipe_out.push([d6tpipe_out.fpath_prefix_local+'out.pq'])
+
+d6tpipe = d6tpipe.Pipe(d6tapi, 'vendorX-tutorial-parquet')
+df = dd.read_parquet(d6tpipe.files()[-1])
+
+# open sql
+# to come
+
+# how to help local dev with cache in dataset just one file?
 
 #****************************************
 #****************************************
