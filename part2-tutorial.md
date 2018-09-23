@@ -9,7 +9,7 @@ This tutorials covers steps 4-5 of the data science process. Just as a reminder:
 
 ## VendorX data
 
-If you've followed [tutorial steps 1-3](https://github.com/citynorman/augvest201807/blob/master/part1-tutorial.md), you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using pandas to do this.
+If you've followed [tutorial steps 1-3](https://github.com/citynorman/altdata/blob/master/part1-tutorial.md), you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using pandas to do this.
 
 FYI: In case you haven't finished tutorial part 1, use [this file](https://s3-us-west-2.amazonaws.com/datasci-finance/data/vendorX-combined.pq) and load into pandas using dask `df=dd.read_parquet('vendorX-combined.pq').compute()`.
 
@@ -28,7 +28,7 @@ Intermediate:
 * calculate quarterly average of "data"
 
 Advanced:
-* create quarterly quintiles of "data"
+* create quarterly quintiles of "data" for each ticker
 * make a cumulative sum of data for each ticker for each quarter as of each "date"
 * assume the data gets published at the end of the month with two week delay. Add a column "publish_date" that contains the publishing date
 
