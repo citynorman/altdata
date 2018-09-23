@@ -1,6 +1,6 @@
 # Hands-on Tutorial: Manipulating Alternative Data with Python, Pt 1
 
-You can get hands-on practice manipulating data with python by completing this tutorial. It covers realistic exercises for getting, ingesting and preprocessing datasets. You should be able to complete this using the [reference pieces](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-parts-2-3-ingesting-and-loading-data/) and [teach in code](https://github.com/citynorman/augvest201807/blob/master/part1.py). This tutorial was developed in collaboration with [Augvest](http://augvest.com/) and [alternativedata.org](https://alternativedata.org/)
+You can get hands-on practice manipulating data with python by completing this tutorial. It covers realistic exercises for getting, ingesting and preprocessing datasets. You should be able to complete this using the [reference pieces](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-parts-2-3-ingesting-and-loading-data/) and [teach in code](https://github.com/citynorman/augvest201807/blob/master/part1.py).
 
 ## Tutorial overview
 
@@ -121,27 +121,3 @@ Get `vendorY` from S3 bucket above.
 * load all files `vendorY/xls-case-multifile*.xls` into pandas using dask [basic]
 
 (HINT: use [d6tstack](https://github.com/d6t/d6tstack))
-
-## Step 4: Preprocess Data
-
-### VendorX data
-
-If you've followed steps 1-3, you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using [pandas](https://pandas.pydata.org/pandas-docs/stable/10min.html) to do this.
-
-Basic:
-* filter dataframe to only have values for ticker M
-* filter dataframe to only have values for tickers M and SPLS without using OR
-* to merge with factset data, make factset tickers of format [ticker]-US
-
-Intermediate:
-* extract ticker from factset tickers (ie ticker without "-US") - there are at least 2 ways of doing this
-* select the last value of every month for each ticker
-* make a column which first uses "data" and then "data_new" once available
-* to merge with quarterly financials data, add a column with quarter and year like 1Q18
-* calculate quarterly average of "data"
-
-Advanced:
-* create quarterly quintiles of "data"
-* make a cumulative sum of data for each ticker for each quarter as of each "date"
-* assume the data gets published at the end of the month with two week delay. Add a column "publish_date" that contains the publishing date
-
