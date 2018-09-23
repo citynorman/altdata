@@ -9,7 +9,7 @@ Hosted by
 
 Reading materials including links to all resources to analyze alternative data for $0 using python.
 
-[Summary blog post](https://docs.google.com/document/d/e/2PACX-1vSRLgOx_VV--fmI2R9zYaSF0VRHPWx_2Ro5PNy3QUZ2qw353xBA0SZzGN-LXHfNibXMSF30x3XN-WBe/pub)
+[Steps 1-5 summary blog post](https://docs.google.com/document/d/e/2PACX-1vSRLgOx_VV--fmI2R9zYaSF0VRHPWx_2Ro5PNy3QUZ2qw353xBA0SZzGN-LXHfNibXMSF30x3XN-WBe/pub)
 
 [Step 1: get data](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-part-1-get-data/)
 
@@ -25,4 +25,4 @@ Have a go at solving the tutorials! It will give you hands on practice.
 
 [Tutorial Part 1](https://github.com/citynorman/altdata/blob/master/part1-tutorial.md)
 
-[Tutorial Part 1](https://github.com/citynorman/altdata/blob/master/part2-tutorial.md)
+[Tutorial Part 2](https://github.com/citynorman/altdata/blob/master/part2-tutorial.md)

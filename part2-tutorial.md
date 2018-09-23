@@ -1,5 +1,7 @@
 # Hands-on Tutorial: Manipulating Alternative Data with Python, Pt 2
 
+## Tutorial overview
+
 This tutorials covers steps 4-5 of the data science process. Just as a reminder:
 * Step 4 Preprocess data: clean, filter and transform data for it to be ready for modeling
 * Step 5 Modeling: apply your analysis, make predictions and draw conclusions
@@ -9,10 +11,11 @@ This tutorials covers steps 4-5 of the data science process. Just as a reminder:
 
 If you've followed [tutorial steps 1-3](https://github.com/citynorman/augvest201807/blob/master/part1-tutorial.md), you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using pandas to do this.
 
-In case you haven't finished tutorial part 1, use [this file](https://s3-us-west-2.amazonaws.com/datasci-finance/data/machinedata-2018-01.csv) and load into pandas.
+# todo: upload combined file
+
+FYI: In case you haven't finished tutorial part 1, use [this file](https://s3-us-west-2.amazonaws.com/datasci-finance/data/machinedata-2018-01.csv) and load into pandas.
 
 ### Step 4: Preprocess Data
-
 
 Basic:
 * filter dataframe to only have values for ticker M
@@ -37,6 +40,8 @@ The previous tutorials used realistic but fake data. In this exercise we will be
 
 ## Step 4: Preprocess Data - Cass data
 
+# todo: upload data
+
 Get data:
 * Cass raw
 * Werner raw
@@ -47,17 +52,28 @@ import fastparquet
 dfcass = fastparquet.ParquetFile('data/financials/cass.pq').to_pandas()
 ```
 
+# todo: d6tpipe preview
+
+# todo: data description
+
+### Todo:
+
 basic:
 * analyze seasonality of Cass raw data
 * combine Cass data with quarterly financials
 
 ## Step 5: Model Data
 
+### Todo:
+
 basic:
 * correlate Cass data with sales growth
-* regress y=sales growth with x=Cass growth 
+* regress y=sales growth with x=Cass growth and assess accuracy of correctly predicting sales beats/misses
 
 intermediate:
 * make rolling out-sample predictions
-* use cross-validation to decide if using 2 variables works better out sample
-* use a sklearn machine learning model and compare preditive value to OLS
+
+# todo: insample fit
+
+* investigate if using both Cass variables works better
+* use a sklearn machine learning model to predict sales growth and compare predictive accuracy to OLS
