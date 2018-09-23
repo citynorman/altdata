@@ -11,9 +11,7 @@ This tutorials covers steps 4-5 of the data science process. Just as a reminder:
 
 If you've followed [tutorial steps 1-3](https://github.com/citynorman/augvest201807/blob/master/part1-tutorial.md), you have obtained and loaded all files from vendorX. You can start preprocessing data for analysis. We will be using pandas to do this.
 
-# todo: upload combined file
-
-FYI: In case you haven't finished tutorial part 1, use [this file](https://s3-us-west-2.amazonaws.com/datasci-finance/data/machinedata-2018-01.csv) and load into pandas.
+FYI: In case you haven't finished tutorial part 1, use [this file](https://s3-us-west-2.amazonaws.com/datasci-finance/data/vendorX-combined.pq) and load into pandas using dask `df=dd.read_parquet('vendorX-combined.pq').compute()`.
 
 ### Step 4: Preprocess Data
 
@@ -40,21 +38,37 @@ The previous tutorials used realistic but fake data. In this exercise we will be
 
 ## Step 4: Preprocess Data - Cass data
 
-# todo: upload data
-
-Get data:
-* Cass raw
-* Werner raw
-* Cass+Werner processed
+### Get data
+* [Cass raw](https://s3-us-west-2.amazonaws.com/datasci-finance/data/cass.pq)  
+* [Werner financials](https://s3-us-west-2.amazonaws.com/datasci-finance/data/werner-processed.pq)  
 
 ```
 import fastparquet
-dfcass = fastparquet.ParquetFile('data/financials/cass.pq').to_pandas()
+dfcass = fastparquet.ParquetFile('cass.pq').to_pandas()
 ```
 
-# todo: d6tpipe preview
+### d6tpipe preview
 
-# todo: data description
+[d6tpipe](https://github.com/d6tdev/d6tpipe) will make it easier to exchange data
+
+```
+import d6tpipe.api
+import d6tpipe.pipe
+
+d6tapi = d6tpipe.api.APIClient(key='9PCCZP5q9eN9abvm',secret='MLpTftafuH3bRAfX')
+pipe = d6tpipe.Pipe(d6tapi, 'riskminds2018-tutorial')
+pipe.pull()
+dfcass = fastparquet.ParquetFile(pipe.files_one('cass.pq')).to_pandas()
+```
+
+
+### Data description
+
+* date_fq: fiscal quarter end date
+* date_announce: quarterly announcement date
+* rev_yoy: actual yoy sales growth
+* rev_yoy_est: broker consensus yoy sales growth
+* rev_isbeat: sales beat broker consensus?
 
 ### Todo:
 
@@ -64,6 +78,8 @@ basic:
 
 ## Step 5: Model Data
 
+FYI: if you haven't done Step 4, use the [Cass+Werner combined file](https://s3-us-west-2.amazonaws.com/datasci-finance/data/werner-cass.pq)
+
 ### Todo:
 
 basic:
@@ -72,8 +88,5 @@ basic:
 
 intermediate:
 * make rolling out-sample predictions
-
-# todo: insample fit
-
 * investigate if using both Cass variables works better
 * use a sklearn machine learning model to predict sales growth and compare predictive accuracy to OLS
