@@ -9,11 +9,11 @@ Hosted by
 
 Reading materials including links to all resources to analyze alternative data for $0 using python.
 
-[Steps 1-5 summary blog post](https://docs.google.com/document/d/e/2PACX-1vSRLgOx_VV--fmI2R9zYaSF0VRHPWx_2Ro5PNy3QUZ2qw353xBA0SZzGN-LXHfNibXMSF30x3XN-WBe/pub)
+[Steps 1-5 summary blog post](https://knect365.com/quantminds/article/3fd1bc49-45c6-44d6-8698-045c29baed1b/the-best-python-tools-to-analyze-alternative-investment-data-for-0)
 
-[Step 1: get data](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-part-1-get-data/)
+[Step 1: get data (details))](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-part-1-get-data/)
 
-[Step 2+3: ingest and load data](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-parts-2-3-ingesting-and-loading-data/)
+[Step 2+3: ingest and load data (details)](https://alternativedata.org/the-best-tools-to-analyze-alternative-data-parts-2-3-ingesting-and-loading-data/)
 
 ## Code for teach in
 
